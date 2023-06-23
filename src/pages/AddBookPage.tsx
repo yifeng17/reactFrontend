@@ -1,7 +1,13 @@
 // src/pages/AddBookPage.tsx
-import { useMutation, gql } from '@apollo/client';
+import { useMutation } from '@apollo/client';
 import React, { useState } from 'react';
 import { ADD_BOOK } from '../graphql/mutations/addBooks';
+
+interface BookInput {
+  title: string;
+  // Uncomment the line below if you also want to include the author
+  // author: string;
+}
 
 const AddBookPage: React.FC = () => {
   const [title, setTitle] = useState('');
@@ -11,8 +17,11 @@ const AddBookPage: React.FC = () => {
 
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
-    addBook({ variables: { title: title } });
+    const bookInput: BookInput = { title };
+
+    addBook({ variables: { title: bookInput } });
     setTitle('');
+
   };
 
   return (
@@ -24,14 +33,8 @@ const AddBookPage: React.FC = () => {
         type="text"
         placeholder="Title"
       />
-      {/* <input
-        value={author}
-        onChange={e => setAuthor(e.target.value)}
-        type="text"
-        placeholder="Author"
-      /> */}
       <button type="submit">Add Book</button>
-      {data && <p>Book added with id: {data.addBook.id}</p>}
+      {data && <p>Book added: {data.addBook.title}</p>}
     </form>
   );
 }

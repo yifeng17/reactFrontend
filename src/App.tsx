@@ -12,6 +12,8 @@ const App: React.FC = () => {
   return (
     <Router>
       <Header />
+      {/*<BooksPage /> */}
+      {/* <AddBookPage /> */}
       <Routes>
         {/* <Route path="/books/:id" element={<BookDetailPage />} /> */}
         <Route path="/add-book" element={<AddBookPage />} />
